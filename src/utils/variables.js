@@ -1,4 +1,4 @@
-// require("dotenv").config();
+require("dotenv").config();
 
 const GOOGLE_CRED = {
   clientId: process.env.GOOGLE_CLIENT_ID,

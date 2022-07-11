@@ -44,6 +44,7 @@ app.post("/send-mail", async (req, res) => {
         .send({ message: "Email not sent due to an error." });
     }
 
+    console.log(data)
     return res.status(200).send({ message: "Email sent successfully." });
   });
 });
