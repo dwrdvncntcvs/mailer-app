@@ -18,6 +18,12 @@ app.get("/", (req, res) => {
 app.post("/send-mail", async (req, res) => {
   const { name, email, subject, message } = req.body;
 
+  if (name === "" || email === "" || subject === "" || message === "") {
+    return res
+      .status(404)
+      .send({ message: "Something is wrong with your message." });
+  }
+
   const { transport } = new Mailer();
 
   const htmlTemplate = createTemplate(
@@ -38,13 +44,11 @@ app.post("/send-mail", async (req, res) => {
 
   transport.sendMail(messageInfo, (err, data) => {
     if (err) {
-      console.log(err);
       return res
         .status(400)
         .send({ message: "Email not sent due to an error." });
     }
 
-    console.log(data)
     return res.status(200).send({ message: "Email sent successfully." });
   });
 });
