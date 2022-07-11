@@ -11,14 +11,21 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.status(200).send("Node mailer app");
+});
+
 app.post("/send-mail", async (req, res) => {
   const { name, email, subject, message } = req.body;
 
-  const htmlTemplate = createTemplate("../templates/email/template-email.html", {
-    message,
-    name,
-    email,
-  });
+  const htmlTemplate = createTemplate(
+    "../templates/email/template-email.html",
+    {
+      message,
+      name,
+      email,
+    }
+  );
 
   const messageInfo = {
     to: "edwardvincentcuevas7@gmail.com",
