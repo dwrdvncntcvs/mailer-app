@@ -1,7 +1,7 @@
 const express = require("express");
 
 const cors = require("cors");
-const { transport } = require("./mailer/mailer");
+const { Mailer } = require("./mailer/mailer");
 const { GOOGLE_CRED } = require("./utils/variables");
 const { createTemplate } = require("./utils/helper");
 
@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
 
 app.post("/send-mail", async (req, res) => {
   const { name, email, subject, message } = req.body;
+
+  const { transport } = new Mailer();
 
   const htmlTemplate = createTemplate(
     "../templates/email/template-email.html",
