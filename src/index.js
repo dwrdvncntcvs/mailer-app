@@ -37,12 +37,13 @@ app.post("/send-mail", async (req, res) => {
   transport.sendMail(messageInfo, (err, data) => {
     if (err) {
       console.log(err);
+      return res
+        .status(400)
+        .send({ message: "Email not sent due to an error." });
     }
 
-    console.log(data);
+    return res.status(200).send({ message: "Email sent successfully." });
   });
-
-  return res.status(200).send({ body: req.body });
 });
 
 app.listen(PORT, () => {
